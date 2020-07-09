@@ -1,0 +1,30 @@
+name: "ResNet50-FP32"
+platform: "tensorrt_plan"
+max_batch_size: 1
+input {
+  name: "data"
+  data_type: TYPE_FP32
+  format: FORMAT_NCHW	
+  dims: 3
+  dims: 224
+  dims: 224
+  reshape {
+        shape: 1
+        shape: 3
+        shape: 224
+        shape: 224
+  }
+}
+output {
+  name: "resnetv17_dense0_fwd"
+  data_type: TYPE_FP32
+  dims: 1
+  dims: 1000
+  label_filename: "imagenet1k_labels.txt"
+}
+cc_model_filenames [
+  {
+    key: "7.0"
+    value: "resnet50-fp32-bs1-v100-exp.engine"
+  }
+]
